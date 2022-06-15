@@ -300,15 +300,21 @@
                     // console.log($(':checkbox').length);
                     $('tr th:first i').parent().html('<i class="fa-solid fa-trash-can"></i>');
                     $('tr th:first i').css('cursor', 'pointer');
-                    $(':checkbox:not(:checked)').click();
-                    // $(':checkbox:not(:checked)').prop('checked', true);
+                    // $(':checkbox:not(:checked)').click();
+                    $(':checkbox:not(:checked)').prop('checked', true);
+                    $('tr:odd .form-check :not(:checked)').closest('tr').css('background-color', '#f9f9f9');
+                    $('tr:even .form-check :not(:checked)').closest('tr').css('background-color', 'transparent');
+                    $('.form-check>:checked').closest('tr').css('background-color', 'lightblue');
                 } else if ($(':checked').length === $(':checkbox').length) {
                     $($('tr th:first i')).parent().html('<i class="fa-solid fa-trash-arrow-up"></i>');
                     $('tr th:first i').css('cursor', 'pointer');
                     // console.log($(':checked').length);
                     // console.log($(':checkbox').length);
-                    $(':checkbox').click();
-                    // $(':checkbox').prop('checked', false);
+                    // $(':checkbox').click();
+                    $(':checkbox').prop('checked', false);
+                    $('tr:odd .form-check :not(:checked)').closest('tr').css('background-color', '#f9f9f9');
+                    $('tr:even .form-check :not(:checked)').closest('tr').css('background-color', 'transparent');
+                    $('.form-check>:checked').closest('tr').css('background-color', 'lightblue');
                 }
             });
 
