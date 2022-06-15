@@ -11,10 +11,10 @@
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous"
         />
-        <link
+        <!-- <link
             rel="stylesheet"
             href="fontawesome-free-6.1.1-web/css/all.min.css"
-        />
+        /> -->
         <style type="text/css">
             .wrap {
                 width: 100%;
@@ -36,6 +36,19 @@
 
         <script src="./js/jquery-3.6.0.min.js"></script>
         <script>
+            // 找不到 font-awesome 可以註解掉
+            // 但是必須要有 jQuery
+
+            // 如果只是要阻止事件傳遞
+            // 用 Event.stopPropagation();
+            // 連預設行為都要阻止的話
+            // 用 Event.preventDefault();
+
+            // 關於統一註冊事件在父層這件事
+            // 可以自行查詢 Event Delegation
+
+            // Ref: https://teagan-hsu.coderbridge.io/2021/01/01/javascript-dom-event-and-event-delegation/
+
             $('.box').on('mouseleave', (e)=> {
                 console.log('mouseleave target:', e.target);
                 console.log('mouseleave currentTarget:', e.currentTarget);
