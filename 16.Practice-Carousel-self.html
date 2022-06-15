@@ -22,6 +22,7 @@
 
             /* 在做位移的時候 如果使用 position 會重新 render */
             /* 但是 transform 不會 不做 scaling 的話後者較好 */
+            /* 鬼故事是 sarafi 好像還是會渲染所以會閃一下 */
             ul.train {
                 width: 500%;
                 list-style: none;
@@ -101,8 +102,7 @@
                     const trStr = 'translateX(' + trNum + 'px)';
                     $('ul.train').css('transform', `translateX(${trNum}px)`);
                     // $('ul.train').css('transform', trStr);
-                    $('.slider-dots-area>li').css('background-color', 'transparent');
-                    $(`.slider-dots-area>li:eq(${trIndex})`).css('background-color', '#fff');
+                    $(`.slider-dots-area>li:eq(${trIndex})`).css('background-color', '#fff').siblings().css('background-color', 'transparent');
                 }, 2000);
             }
 
@@ -129,8 +129,7 @@
                     // console.log(trStr);
                     $('ul.train').css('transform', trStr);
                     
-                    $('.slider-dots-area>li').css('background-color', 'transparent');
-                    $(e.target).css('background-color', '#fff');
+                    $(e.target).css('background-color', '#fff').siblings().css('background-color', 'transparent');
                         
                     setTimeout(() => {
                         isActive = !isActive;
