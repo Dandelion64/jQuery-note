@@ -54,6 +54,9 @@
 
             $('.box').on('click', (e)=> {
                 console.log('click target:', e.target);
+                console.log('click target nodeName:', e.target.nodeName);
+                // Ref: https://developer.mozilla.org/zh-TW/docs/Web/API/Node/nodeType
+                console.log('click target nodeType:', e.target.nodeType);
                 console.log('click currentTarget:', e.currentTarget);
             });
 
