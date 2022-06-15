@@ -99,7 +99,8 @@
                     }
                     trIndex = trNum / (-1000);
                     const trStr = 'translateX(' + trNum + 'px)';
-                    $('ul.train').css('transform', trStr);
+                    $('ul.train').css('transform', `translateX(${trNum}px)`);
+                    // $('ul.train').css('transform', trStr);
                     $('.slider-dots-area>li').css('background-color', 'transparent');
                     $(`.slider-dots-area>li:eq(${trIndex})`).css('background-color', '#fff');
                 }, 2000);
