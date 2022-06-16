@@ -24,7 +24,7 @@
             /* 但是 transform 不會 不做 scaling 的話後者較好 */
             /* 鬼故事是 sarafi 好像還是會渲染所以會閃一下 */
             ul.train {
-                width: 500%;
+                width: 600%;
                 list-style: none;
                 padding-left: 0;
                 /* transform: translateX(-1000px); */
@@ -75,6 +75,10 @@
                 <li><img src="./imgs/slide3.jpg" alt="Slide3"></li>
                 <li><img src="./imgs/slide4.jpg" alt="Slide4"></li>
                 <li><img src="./imgs/slide5.jpg" alt="Slide5"></li>
+                <!-- 多放一張做簡易輪播效果 -->
+                <!-- 注意爬蟲會發現你多放一張 -->
+                <!-- 然後要處理 transtion 的問題 -->
+                <li><img src="./imgs/slide1.jpg" alt="Slide1"></li>
             </ul>
             <ul class="slider-dots-area d-flex justify-content-center w-100">
                 <li></li>
@@ -91,16 +95,29 @@
             let trNum = 0;
             let isActive = false;
             let intervalNum;
-
+            
             const carouselAuto = () => {
                 intervalNum = setInterval(() => {
-                    trNum -= 1000;
-                    if (trNum < -4000) {
-                        trNum = 0;
+                    if (trNum === 0) {
+                        $('ul.train').css('transition', '1s');
                     }
+                    trNum -= 1000;
+                    // if (trNum < -5000) {
+                    //     trNum = 0;
+                    // }
                     trIndex = trNum / (-1000);
+                    console.log(trIndex);
                     const trStr = 'translateX(' + trNum + 'px)';
                     $('ul.train').css('transform', `translateX(${trNum}px)`);
+                    
+                    if (trNum === -5000) {
+                        trNum = 0
+                        $(`.slider-dots-area>li:eq(0)`).css('background-color', '#fff').siblings().css('background-color', 'transparent');
+                        setTimeout(() => {
+                                $('ul.train').css('transition', '0s');
+                                $('ul.train').css('transform', `translateX(0px)`);
+                        }, 1000); 
+                    }
                     // $('ul.train').css('transform', trStr);
                     $(`.slider-dots-area>li:eq(${trIndex})`).css('background-color', '#fff').siblings().css('background-color', 'transparent');
                 }, 2000);
