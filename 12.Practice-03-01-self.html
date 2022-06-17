@@ -28,9 +28,10 @@
 
             body {
                 width: 100%;
-                height: 100%;
+                height: 100vh;
                 background-image: url("./pics/background.jpg");
                 background-size: cover;
+                background-repeat: no-repeat;
             }
 
             .login {
@@ -44,8 +45,13 @@
                 margin: auto;
                 background-color: #fff8;
                 border: 1px solid #ccc;
-                backdrop-filter: blur(6px);
+                backdrop-filter: blur(3px);
                 border-radius: 20px;
+            }
+
+            button {
+                flex-basis: 0;
+                flex-grow: 1;
             }
         </style>
     </head>
@@ -53,6 +59,8 @@
         <div class="login">
             <form>
                 <div class="mx-4 my-4">
+                    <!-- 在 label 上點選左鍵 -->
+                    <!-- 會 focus 對應 id 的 <input> -->
                     <label for="exampleInputText1" class="form-label">
                         Username
                     </label>
@@ -94,10 +102,13 @@
                     </label>
                 </div>
                 <div class="button-area mx-4 d-flex">
-                    <button type="button" class="btn btn-primary w-50 mr-2">
+                    <button type="button" id="autofill" class="btn btn-primary mr-2">
                         Autofill
                     </button>
-                    <button type="submit" class="btn btn-primary w-50 mx-1">
+                    <button type="button" id="checking" class="btn btn-primary mx-2">
+                        Checking
+                    </button>
+                    <button type="submit" class="btn btn-primary ml-2">
                         Submit
                     </button>
                 </div>
@@ -106,11 +117,19 @@
 
         <script src="./js/jquery-3.6.0.min.js"></script>
         <script>
-            $("button:not([type='submit'])").click(() => {
+            $("#autofill").on('click', () => {
                 $('input:text').val('user89757');
                 $("input[type='email']").val('user89757@ggqq.com');
                 $("input[type='password']").val('Us89757er');
             });
+
+            $('#checking').on('click', () => {
+                if ($('#exampleInputPassword1').attr('type') === 'password') {
+                    $('#exampleInputPassword1').attr('type', 'text');
+                } else {
+                    $('#exampleInputPassword1').attr('type', 'password');
+                }
+            })
         </script>
     </body>
 </html>
