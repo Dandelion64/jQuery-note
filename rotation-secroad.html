@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="fontawesome-free-6.1.1-web/css/all.min.css"
+        />
+        <style type="text/css">
+            body {
+                height: 500vh;
+            }
+
+            .container {
+                position: fixed;
+                top: 0;
+            }
+
+            .box {
+                width: 200px;
+                height: 200px;
+                background-color: #eee;
+                margin: 10px;
+                border: 5px solid #000;
+                position: relative;
+            }
+
+            /* 用來將四者定到中間 */
+            /* 可以先不要管這個定位點怎麼來 */
+            .place-setter {
+                position: absolute;
+                left: 85px;
+                top: 175px;
+            }
+            .item {
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                /* top: -85px; */
+                /* left: 85px; */
+            }
+
+            .item1 {
+                /* transform: rotate(20deg); */
+                /* 設定起始位置 */
+                left: 85px;
+                top: 0;
+            }
+            
+            .item2 {
+                /* transform: rotate(90deg); */
+                /* 設定起始位置 */
+                left: 85px;
+                top: 0;
+            }
+            
+            .item3 {
+                /* transform: rotate(180deg); */
+                /* 設定起始位置 */
+                left: 85px;
+                top: -63.75px;
+            }
+
+            .item4 {
+                /* transform: rotate(270deg); */
+                /* 設定起始位置 */
+                left: 85px;
+                top: -17px;
+            }
+
+            .box img {
+                width: 100%;
+                position: absolute;
+                top: -90px;
+            }
+
+            .bigger-box {
+                background-color: #eee;
+                width: 420px;
+                height: 280px;
+                margin: 10px;
+                border: 5px solid #000;
+                position: relative;
+            }
+
+            /* 用來將其定到中間 */
+            /* 可以先不要管這個定位點怎麼來 */
+            .bigger-place-setter {
+                position: absolute;
+                left: 180px;
+                top: 110px;
+            }
+
+            .item5 {
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                /* 設定起始位置 */
+                left: 180px;
+                top: 0px;
+            }
+
+            .item5 img {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="box">
+                    <div class="place-setter">
+                        <div class="item item1">
+                            <img src="./Portrait/Bully.png" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="place-setter">
+                        <div class="item item2">
+                            <img src="./Portrait/Dove.png" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="box">
+                    <div class="place-setter">
+                        <div class="item item3">
+                            <img src="./Portrait/Dizzy.png" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="place-setter">
+                        <div class="item item4">
+                            <img src="./Portrait/Female.png" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="bigger-box">
+                    <div class="bigger-place-setter">
+                        <div class="item5">
+                            <img src="./Portrait/Male.PNG" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="./js/jquery-3.6.0.min.js"></script>
+        <script>
+            const renderBully = () => {
+                // let time = new Date().getMilliseconds();
+                // 如果開啟 .item {
+                //    top: -85px
+                // }
+                // 就會旋轉
+                // 1000 毫秒 = 360度 x 2.7777777778
+                // console.log(time/2.777777778);
+                // const rotateStr = 'rotate(' + time/2.777777778 + 'deg)';
+                // $('.item1').css('transform', rotateStr);
+                // 現在改成定位
+                // console.log(time);
+                // console.log(Math.cos(time));
+                // 轉太快了所以調整一下數值
+                // 一圈 360 度度 = 2PI 徑度
+                // time = time / (2 * Math.PI);
+                // console.log(time);
+                // const left = Math.cos(time) * 85 + 'px';
+                // const top = Math.sin(time) * 85/2 + 'px';
+                // $('.item1').css('left', left);
+                // $('.item1').css('top', top);
+                // 一直呼叫自己
+                // setTimeout(renderBully, 30);
+            };
+
+            // setTimeout(renderBully, 30);
+
+            // 把抽風時間版本改成捲動版本
+
+            $(window).on("scroll", (e) => {
+                const scroll = $(e.target).scrollTop();
+                // console.log(scroll);
+
+                // Mod for Modulo 餘數
+                // 我的 Mac 500vh 是 3132
+                // 這數字可以自行調整
+                const _100vh = 3132 / 5; // 626.4
+
+                const scrollMod = scroll % _100vh;
+                // console.log(scrollMod);
+                // console.log(Math.cos(scrollMod));
+                // console.log(Math.sin(scrollMod));
+
+                // 圓一圈是 2PI = 2 * 3.1415926 = 6.2831852
+                // 而我的 _100vh 是 626.4
+                // 除以 100 看起來差不多
+
+                // 如果要完全精準就這樣
+                // 3132 / 5 / 6.28 = 99.74522
+                let left = Math.cos(scrollMod / 100) * 85;
+                let top = Math.sin(scrollMod / 100) * 85;
+
+                const leftStr1 = left + 'px';
+                const topStr1 = top + 'px';
+
+                $(".item1").css("left", leftStr1);
+                $(".item1").css("top", topStr1);
+
+                // 如果想要變扁
+                const top2 = top / 1.5;
+
+                // leftStr2 和 leftStr1 一樣 沒改
+                const leftStr2 = left + 'px';
+                const topStr2 = top2 + 'px';
+
+                $(".item2").css("left", leftStr2);
+                $(".item2").css("top", topStr2);
+
+                // 如果想要偏斜
+                // 要加上一個永遠在 0 到 1 之間的數字
+                // 這個值在 X 越靠近 1 或 -1 時要越大
+                // 最簡單的做法就是對 cos() 取絕對值
+                // Math.abs(Math.cos())
+                // 用下面這行會是蜜蜂切偶模式 先註解
+                // const skewConstant = Math.abs(Math.cos(scrollMod/100));
+
+                // 0.75 是土法煉鋼的值 試出來的
+                // top3 = -Math.sin() + Math.cos()
+                const top3 = (top - left) * 0.75;
+
+                // left = left * skewConstant;
+                // top = top * skewConstant;
+
+                const leftStr3 = left + "px";
+                const topStr3 = top3 + "px";
+
+                // console.log(top);
+
+                $(".item3").css("left", leftStr3);
+                $(".item3").css("top", topStr3);
+
+                // 所以如果希望用第三種模式動 但是扁一點的話
+                const top4 = (top - left) / 5;
+
+                // 用 console.log() 捲到最上面偷看 top4 的值
+                // 回去上面設定初始位置
+                // console.log(top4);
+
+                const leftStr4 = left + "px";
+                const topStr4 = top4 + "px";
+
+                $(".item4").css("left", leftStr4);
+                $(".item4").css("top", topStr4);
+
+                // 接下來要調整寬度試試看
+
+                // 因為這個盒子比較大 所以兩種座標重算
+                // 橫向半徑大概 180px
+                const left5 = Math.cos(scrollMod / 100) * 180;
+                const top5 = Math.sin(scrollMod / 100) * 180 / 5;
+
+                const leftStr5 = left5 + "px";
+                const topStr5 = top5 + "px";
+
+                $(".item5").css("left", leftStr5);
+                $(".item5").css("top", topStr5);
+
+                // 為了調整大小 要觀察 top 值的規律
+                // console.log(top5);
+                // 在 top 值最大的時候 width 要最大
+                // 在 top 值變成負值的時候要變小 但不能變負
+                // 可以看到這個值在 -36 到 36 左右循環
+                // 除以 3 就是 -12 到 12 之間
+                // 如果中間值是 88 去相加就會在 76 到 100 間
+                
+                const maleWidth = 88 + top5/3;
+                // console.log(maleWidth);
+                const maleWidthStr = maleWidth + '%'
+                $('.item5 img').css('width', maleWidthStr);
+            });
+        </script>
+    </body>
+</html>
