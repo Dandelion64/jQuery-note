@@ -212,6 +212,40 @@
                     move('right');
                 }
             });
+
+            // 加上 keyboard event
+            $(document).on('keydown', (e) => {
+                // console.log('keydown: ', e.keyCode);
+
+                if (e.keyCode === 38) {
+                    getTopValue();
+                    if (topValue > edgeList['minY']) {
+                        move('top');
+                    }
+                }
+
+                if (e.keyCode === 40) {
+                    getTopValue();
+                    if (topValue < edgeList['maxY']) {
+                        move('bottom');
+                    }
+                }
+
+
+                if (e.keyCode === 37) {
+                    getLeftValue();
+                    if (leftValue > edgeList['minX']) {
+                        move('left');
+                    }
+                }
+                
+                if (e.keyCode === 39) {
+                    getLeftValue();
+                    if (leftValue < edgeList['maxX']) {
+                        move('right');
+                    }
+                }
+            })
         </script>
     </body>
 </html>
