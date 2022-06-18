@@ -101,16 +101,17 @@
 
                 // removeClass() 沒有參數傳入時 
                 // 會移除所有 Class
-                $('p').removeClass();
+                // $('p').removeClass();
+                $(e.target).addClass('active').siblings().removeClass('active');
 
                 if ($(e.target).is(":contains('S')")) {
-                    $('p').addClass('fontS');
+                    $('p').removeClass().addClass('fontS');
                 }
                 if ($(e.target).is(":contains('M')")) {
-                    $('p').addClass('fontM');
+                    $('p').removeClass().addClass('fontM');
                 }
                 if ($(e.target).is(":contains('L')")) {
-                    $('p').addClass('fontL');
+                    $('p').removeClass().addClass('fontL');
                 }
             })
         </script>
