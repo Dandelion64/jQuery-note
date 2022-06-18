@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="fontawesome-free-6.1.1-web/css/all.min.css"
+        />
+        <style type="text/css">
+            .wrap {
+                width: 1000px;
+                height: 400px;
+                overflow: hidden;
+                position: relative;
+                margin: auto;
+            }
+
+            /* 在做位移的時候 如果使用 position 會重新 render */
+            /* 但是 transform 不會 不做 scaling 的話後者較好 */
+            /* 鬼故事是 sarafi 好像還是會渲染所以會閃一下 */
+            ul.train {
+                width: 600%;
+                list-style: none;
+                padding-left: 0;
+                /* transform: translateX(-1000px); */
+                transition: 1s;
+            }
+
+            ul.train > li {
+                flex-basis: 0;
+                flex-grow: 1;
+            }
+
+            ul.train > li > img {
+                width: 100%;
+                /* height: 100%; */
+                object-fit: cover;
+                /* object-position: 100% 100%; */
+                position: relative;
+                top: -25%;
+            }
+
+            .slider-dots-area {
+                list-style: none;
+                padding-left: 0;
+                /* margin: 0; */
+                position: absolute;
+                bottom: 0;
+            }
+
+            .slider-dots-area > li {
+                width: 40px;
+                height: 10px;
+                border: 1px solid #fff;
+                /* gap: 5px; */
+                margin: 0 5px;
+            }
+
+            .slider-dots-area > li:first-child {
+                background-color: #fff;
+            }
+
+            .prev-page-area,
+            .next-page-area {
+                position: absolute;
+                top: 50%;
+                /* background-color: #fff; */
+                transform: translateY(-50%);
+                text-align: center;
+                color: #fff;
+                font-size: 2rem;
+            }
+
+            .prev-page-area {
+                left: 10px;
+            }
+
+            .next-page-area {
+                right: 10px;
+            }
+
+            /* .prev-page-area i,
+            .next-page-area i {} */
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <!-- 這些清單都是為了爬蟲 代表其有關聯 -->
+            <ul class="train d-flex">
+                <li><img src="./imgs/slide1.jpg" alt="Slide1" /></li>
+                <li><img src="./imgs/slide2.jpg" alt="Slide2" /></li>
+                <li><img src="./imgs/slide3.jpg" alt="Slide3" /></li>
+                <li><img src="./imgs/slide4.jpg" alt="Slide4" /></li>
+                <li><img src="./imgs/slide5.jpg" alt="Slide5" /></li>
+                <!-- 多放一張做簡易輪播效果 -->
+                <!-- 注意爬蟲會發現你多放一張 -->
+                <!-- 然後要處理 transtion 的問題 -->
+                <li><img src="./imgs/slide1.jpg" alt="Slide1" /></li>
+            </ul>
+            <ul class="slider-dots-area d-flex justify-content-center w-100">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+            <div class="prev-page-area">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+            <div class="next-page-area">
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </div>
+
+        <script src="./js/jquery-3.6.0.min.js"></script>
+        <script src="./bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            let trNum = 0;
+            let isActive = false;
+            let intervalNum;
+
+            const carouselAuto = () => {
+                intervalNum = setInterval(() => {
+                    if (trNum === 0) {
+                        $("ul.train").css("transition", "1s");
+                    }
+                    trNum -= 1000;
+                    // if (trNum < -5000) {
+                    //     trNum = 0;
+                    // }
+                    trIndex = trNum / -1000;
+                    console.log(trIndex);
+                    const trStr = "translateX(" + trNum + "px)";
+                    $("ul.train").css("transform", `translateX(${trNum}px)`);
+
+                    if (trNum === -5000) {
+                        trNum = 0;
+                        $(`.slider-dots-area>li:eq(0)`)
+                            .css("background-color", "#fff")
+                            .siblings()
+                            .css("background-color", "transparent");
+                        setTimeout(() => {
+                            $("ul.train").css("transition", "0s");
+                            $("ul.train").css("transform", `translateX(0px)`);
+                        }, 1000);
+                    }
+                    // $('ul.train').css('transform', trStr);
+                    $(`.slider-dots-area>li:eq(${trIndex})`)
+                        .css("background-color", "#fff")
+                        .siblings()
+                        .css("background-color", "transparent");
+                }, 2000);
+            };
+
+            // 用 .on() 改寫
+            // 為 Namespaced Events 佔用記憶體少
+            // 也可以做到事件名稱管理
+            // $('.slider-dots-area>li').mouseenter((e) => {
+            $(".slider-dots-area>li").on("mouseenter", (e) => {
+                if (!isActive) {
+                    isActive = !isActive;
+                    clearInterval(intervalNum);
+                    // console.log($(e.target).index());
+
+                    // const thisEvent = $('.slider-dots-area>li').detach();
+
+                    trNum = -1000 * $(e.target).index();
+                    // if (trNum < -4000) {
+                    //     trNum = 0;
+                    // }
+                    // console.log(trNum);
+                    // trIndex = trNum / (-1000);
+                    // console.log(`${trIndex}`);
+                    const trStr = "translateX(" + trNum + "px)";
+                    // console.log(trStr);
+                    $("ul.train").css("transform", trStr);
+
+                    $(e.target)
+                        .css("background-color", "#fff")
+                        .siblings()
+                        .css("background-color", "transparent");
+
+                    setTimeout(() => {
+                        isActive = !isActive;
+                        carouselAuto();
+                    }, 1000);
+                }
+            });
+            carouselAuto();
+
+            // prev 要多一種邏輯判斷 先跳過
+            // $(".prev-page-area").on("click", () => {
+            //     if (!isActive) {
+            //         isActive = !isActive;
+            //         if (trNum === 0) {
+            //             $("ul.train").css("transition", "1s");
+            //         }
+            //         trNum += 1000;
+            //         // if (trNum < -5000) {
+            //         //     trNum = 0;
+            //         // }
+            //         trIndex = trNum / -1000;
+            //         console.log(trIndex);
+            //         const trStr = "translateX(" + trNum + "px)";
+            //         $("ul.train").css("transform", `translateX(${trNum}px)`);
+
+            //         if (trNum === -5000) {
+            //             trNum = 0;
+            //             $(`.slider-dots-area>li:eq(0)`)
+            //                 .css("background-color", "#fff")
+            //                 .siblings()
+            //                 .css("background-color", "transparent");
+            //             setTimeout(() => {
+            //                 $("ul.train").css("transition", "0s");
+            //                 $("ul.train").css("transform", `translateX(0px)`);
+            //             }, 1000);
+            //         }
+
+            //         // $('ul.train').css('transform', trStr);
+            //         $(`.slider-dots-area>li:eq(${trIndex})`)
+            //             .css("background-color", "#fff")
+            //             .siblings()
+            //             .css("background-color", "transparent");
+
+            //         setTimeout(() => {
+            //             isActive = !isActive;
+            //             // carouselAuto();
+            //         }, 1000);
+            //     }
+            // });
+
+            $(".next-page-area").on("click", () => {
+                if (!isActive) {
+                    isActive = !isActive;
+                    clearInterval(intervalNum);
+                    if (trNum === 0) {
+                        $("ul.train").css("transition", "1s");
+                    }
+                    trNum -= 1000;
+                    // if (trNum < -5000) {
+                    //     trNum = 0;
+                    // }
+                    trIndex = trNum / -1000;
+                    console.log(trIndex);
+                    const trStr = "translateX(" + trNum + "px)";
+                    $("ul.train").css("transform", `translateX(${trNum}px)`);
+
+                    if (trNum === -5000) {
+                        trNum = 0;
+                        $(`.slider-dots-area>li:eq(0)`)
+                            .css("background-color", "#fff")
+                            .siblings()
+                            .css("background-color", "transparent");
+                        setTimeout(() => {
+                            $("ul.train").css("transition", "0s");
+                            $("ul.train").css("transform", `translateX(0px)`);
+                        }, 1000);
+                    }
+
+                    // $('ul.train').css('transform', trStr);
+                    $(`.slider-dots-area>li:eq(${trIndex})`)
+                        .css("background-color", "#fff")
+                        .siblings()
+                        .css("background-color", "transparent");
+
+                    setTimeout(() => {
+                        isActive = !isActive;
+                        carouselAuto();
+                    }, 1000);
+                }
+            });
+        </script>
+    </body>
+</html>
