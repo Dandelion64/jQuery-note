@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const a = () => {
+        //     setTimeout(() => {
+        //         console.log('a');
+        //     }, 1000);
+        // }
+
+        const b = (cb2) => {
+            setTimeout(() => {
+                console.log('b');
+                cb2();
+            }, 2000);
+        }
+
+        const c = () => {
+            setTimeout(() => {
+                console.log('c');
+            }, 1500);
+        }
+
+        // a();
+        // b();
+        // c();
+
+
+        // 傳入函式
+        const a = (cb1) => {
+            setTimeout(() => {
+                console.log('a');
+                cb1(c);
+            }, 1000);
+        }
+
+        a(b);
+        // a(c);
+    </script>
+</body>
+</html>
