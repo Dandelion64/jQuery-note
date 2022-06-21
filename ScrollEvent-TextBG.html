@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        body {
+            height: 500vh;
+        }
+        .wrap {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background-color: rgb(79, 201, 219);
+            /* background-color: rgb(217, 139, 84); */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-image: url('./pics/banana.jpeg');
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <p>APPLE</p>
+    </div>
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script>
+        const documentH = $(document).height();
+        const windowH = $(window).height();
+
+        const changeBGHeight = (documentH - windowH) / 2;
+
+        $(window).on('scroll', () => {
+            const backgroundPositionOffset = $(document).scrollTop() * 4 / 100 + 'px';
+
+            if ($(document).scrollTop() >= changeBGHeight ) {
+                $('.wrap').css('background-color', 'rgb(217, 139, 84)')
+                $('p').css('background-image', "url('./pics/apple.jpeg')")
+                $('p').css('background-position', `0% ${backgroundPositionOffset}`)
+            } else {
+                $('.wrap').css('background-color', 'rgb(79, 201, 219)')
+                $('p').css('background-image', "url('./pics/banana.jpeg')")
+                $('p').css('background-position', `0% ${backgroundPositionOffset}`)
+            }
+        })
+    </script>
+</body>
+</html>
