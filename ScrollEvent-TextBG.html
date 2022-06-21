@@ -31,12 +31,13 @@
             -webkit-background-clip: text;
             background-image: url('./pics/banana.jpeg');
             background-size: cover;
+            background-repeat: no-repeat;
         }
     </style>
 </head>
 <body>
     <div class="wrap">
-        <p>APPLE</p>
+        <p>BANANA</p>
     </div>
     <script src="./js/jquery-3.6.0.min.js"></script>
     <script>
@@ -46,7 +47,7 @@
         const changeBGHeight = (documentH - windowH) / 2;
 
         $(window).on('scroll', () => {
-            const backgroundPositionOffset = $(document).scrollTop() * 4 / 100 + 'px';
+            const backgroundPositionOffset = $(document).scrollTop() * 2 / 100 + '%';
 
             if ($(document).scrollTop() >= changeBGHeight ) {
                 $('.wrap').css('background-color', 'rgb(217, 139, 84)')
