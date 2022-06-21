@@ -50,10 +50,12 @@
 
             if ($(document).scrollTop() >= changeBGHeight ) {
                 $('.wrap').css('background-color', 'rgb(217, 139, 84)')
+                $('p').text('APPLE')
                 $('p').css('background-image', "url('./pics/apple.jpeg')")
                 $('p').css('background-position', `0% ${backgroundPositionOffset}`)
             } else {
                 $('.wrap').css('background-color', 'rgb(79, 201, 219)')
+                $('p').text('BANANA')
                 $('p').css('background-image', "url('./pics/banana.jpeg')")
                 $('p').css('background-position', `0% ${backgroundPositionOffset}`)
             }
