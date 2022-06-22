@@ -57,12 +57,12 @@
             // 1238 是土法煉鋼的寬度 實際上這數字要用高度算出來
             // 我的原圖是 4751 * 3002 
             // if ($('body').width() <= 1238) {
-            if ($('body').width() <= $('body').height() * 4751 / 3002) {
-                $('body').css('background-size', `auto ${$('body').height()}px`);
-                $('.filter').css('background-size', `auto ${$('body').height()}px`);
-            } else {
+            if ($('body').width() > $('body').height() * 4751 / 3002) {
                 $('body').css('background-size', `${$('body').width()}px auto`);
                 $('.filter').css('background-size', `${$('body').width()}px auto`);
+            } else {
+                $('body').css('background-size', `auto ${$('body').height()}px`);
+                $('.filter').css('background-size', `auto ${$('body').height()}px`);
             }
 
             $(document).on('mousemove', (e) => {
@@ -80,13 +80,13 @@
             })
 
             $(window).on('resize', () => {
-                if ($('body').width() <= $('body').height() * 4751 / 3002) {
-                    $('body').css('background-size', `auto ${$('body').height()}px`);
-                    $('.filter').css('background-size', `auto ${$('body').height()}px`);
-                } else {
-                    $('body').css('background-size', `${$('body').width()}px auto`);
-                    $('.filter').css('background-size', `${$('body').width()}px auto`);
-                }
+                if ($('body').width() > $('body').height() * 4751 / 3002) {
+                $('body').css('background-size', `${$('body').width()}px auto`);
+                $('.filter').css('background-size', `${$('body').width()}px auto`);
+            } else {
+                $('body').css('background-size', `auto ${$('body').height()}px`);
+                $('.filter').css('background-size', `auto ${$('body').height()}px`);
+            }
             })
         </script>
     </body>
