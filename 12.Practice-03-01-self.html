@@ -57,7 +57,7 @@
     </head>
     <body>
         <div class="login">
-            <form>
+            <form name="formLogin">
                 <div class="mx-4 my-4">
                     <!-- 在 label 上點選左鍵 -->
                     <!-- 會 focus 對應 id 的 <input> -->
@@ -68,6 +68,7 @@
                         type="text"
                         class="form-control"
                         id="exampleInputText1"
+                        name="username"
                     />
                 </div>
                 <div class="mx-4 my-4">
@@ -78,6 +79,7 @@
                         type="email"
                         class="form-control"
                         id="exampleInputEmail1"
+                        name="email"
                     />
                 </div>
                 <div class="mx-4 my-4">
@@ -88,6 +90,7 @@
                         type="password"
                         class="form-control"
                         id="exampleInputPassword1"
+                        name="password"
                     />
                 </div>
                 <div class="mb-4 mx-4 form-check">
@@ -120,7 +123,7 @@
             $("#autofill").on('click', () => {
                 $('input:text').val('user89757');
                 $("input[type='email']").val('user89757@ggqq.com');
-                $("input[type='password']").val('Us89757er');
+                $("#exampleInputPassword1").val('Us89757er');
             });
 
             $('#checking').on('click', () => {
@@ -129,6 +132,28 @@
                 } else {
                     $('#exampleInputPassword1').attr('type', 'password');
                 }
+            })
+
+            $('button[type=submit]').on('click', (e) => {
+                e.preventDefault(); // 阻止表單送出資料
+
+                const formLogin = document.formLogin; // 直接用 name 找到 DOM Element
+                const fd = new FormData(formLogin);
+
+                console.log(fd);
+                console.log([...fd]);
+
+                const fdParams = '?' + [...fd].map((element) => (element[0] + '=' + element[1])).join('&');
+
+                console.log(fdParams);
+
+                // const r = await fetch('/', {
+                //     method: 'post',
+                //     body: fd
+                // });
+
+                // const result = await r.json();
+                // console.log(result);
             })
         </script>
     </body>
