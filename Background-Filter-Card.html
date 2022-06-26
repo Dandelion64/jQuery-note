@@ -27,7 +27,9 @@
             }
 
             .container {
-                perspective: 500px;
+                /* perspective: 500px; */
+                /* 可以直接下在子層的 transform 中 故註解 */
+                /* Ref: https://css-tricks.com/almanac/properties/t/transform/ */
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -85,7 +87,7 @@
 
                 $('.card').css(
                     {
-                        transform: `rotate3d(0, 0.2, 0, ${(e.pageX - $('body').width()* 0.5)/30}deg)`
+                        transform: `perspective(500px) rotate3d(0, 0.2, 0, ${(e.pageX - $('body').width()* 0.5)/30}deg)`
                     }
                 )
 
@@ -94,7 +96,7 @@
                         left: `${e.pageX-315}px`,
                         top: `${e.pageY-271}px`,
                         backgroundPosition: `${-e.pageX+315}px ${-e.pageY+271}px`,
-                        transform: `rotate3d(0, 0.2, 0, ${(e.pageX - $('body').width()* 0.5)/30}deg)`
+                        transform: `perspective(500px)  rotate3d(0, 0.2, 0, ${(e.pageX - $('body').width()* 0.5)/30}deg)`
                     }
                 )
             })
